@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# The Number being to set 1 traks which shift it needs to undergo
+NUMBER=1
+# From google
+# The Internal Field Separator (IFS) that is used for word splitting after expansion and to split lines into words with the read builtin command.
+IFS=$'\n'
+
+# The set -f command disables file name expansion
+set -f
+
+for j in $( seq 25 $END ); do # The shift will be done twenty five times to decode 
+	echo "Shift $NUMBER" # Outputs the number of shifts done one after the other
+
+	for j in $( cat < "$1" ); do
+		echo "$j" | tr '[A-Z]' $( ./create_pattern -n $NUMBER -u ) 
+	done
+	
+	let NUMBER=NUMBER+1 # The shift tracker will get incremented to get the correct caesar shifts
+
+done		

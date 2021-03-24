@@ -1,0 +1,33 @@
+#!/bin/bash
+store_translate=0 #The number of characters to be translated is stored
+
+if [ "$1" = "-u" ]; then #Checking if the parameter is uppercase
+	while getopts ":un:" opt; do
+		case "${opt}" in n)
+	          store_translate=${OPTARG} ;; # Number of characters to be translated are stored 
+        esac   
+    done
+    #  calling the first script to create the pattern and using that pattern in a call to tr
+    cat /dev/stdin | tr '[A-Z]' $( ./create_pattern -u -n $store_translate)
+
+elif [ "$3" = "-u" ]; then #Checking if the parameter is uppercase
+	while getopts ":un:" opt; do
+		case "${opt}" in
+		n)
+            store_translate=${OPTARG} ;; #The number of characters to be translated is stored
+        esac   
+    done
+    # calling the first script to create the pattern and using that pattern in a call to tr
+    cat /dev/stdin | tr '[A-Z]' $( ./create_pattern -u -n $store_translate)
+
+else #Performs lower case shift
+    while getopts ":un:" opt; do
+		case "${opt}" in
+		n)
+            store_translate=${OPTARG} ;; #The number of characters to be translated is stored
+        esac   
+    done
+    #  calling the first script to create the pattern and using that pattern in a call to tr
+    cat /dev/stdin | tr '[a-z]' $( ./create_pattern -n $store_translate)
+fi    
+         

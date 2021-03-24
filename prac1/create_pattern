@@ -1,0 +1,76 @@
+#!/bin/bash
+ 
+# Does caesar cipher according the parameters -n and -u
+# -u specifies it is an uppercase
+
+store_translate=0 # The number of characters to be translated is stored
+
+if [ "$1" = "-u" ]; then # Checking if the parameter is uppercase
+	# Got it from subsequet research from google
+	while getopts ":un:" opt; do 
+		case "${opt}" in n)
+            store_translate=${OPTARG} ;;
+        esac   
+    done
+
+    if [ $store_translate -eq 0 ] || !(($store_translate % 26)); then
+	     echo "[A-Z]"
+	else
+	    number=0 
+	    letter_one="A"
+	    letter_two="Z"
+	    # Loop to check all the characters are translated
+	    while [ $number -lt $store_translate ]; do
+	      letter_one=$(echo "$letter_one" | tr [A-Z] [B-ZA])
+	      letter_two=$(echo "$letter_two" | tr [A-Z] [B-ZA])
+	      let number=number+1
+	    done
+	    echo "[$letter_one-ZA-$letter_two]"
+	fi          
+elif [ "$3" = "-u" ]; then # Checking if the parameter is uppercase
+	while getopts ":un:" opt; do
+		case "${opt}" in
+		n)
+            store_translate=${OPTARG} ;;
+        esac   
+    done
+
+    if [ $store_translate -eq 0 ] || !(($store_translate % 26)); then
+	     echo "[A-Z]"
+	else
+	    number=0
+	    letter_one="A"
+	    letter_two="Z"
+	    while [ $number -lt $store_translate ]; do
+	      letter_one=$(echo "$letter_one" | tr [A-Z] [B-ZA])
+	      letter_two=$(echo "$letter_two" | tr [A-Z] [B-ZA])
+	      let number=number+1
+	    done
+	    echo "[$letter_one-ZA-$letter_two]"
+	fi  
+else
+    while getopts ":un:" opt; do
+		case "${opt}" in
+		n)
+            store_translate=${OPTARG} ;; #The number of characters to be translated is stored
+        esac   
+    done
+
+    if [ $store_translate -eq 0 ] || !(($store_translate % 26)); then
+	     echo "[A-Z]"
+	     echo "hi"
+	else
+	    number=0
+	    letter_one="a"
+	    letter_two="z"
+	    while [ $number -lt $store_translate ]; do
+	      letter_one=$(echo "$letter_one" | tr [a-z] [b-za])
+	      letter_two=$(echo "$letter_two" | tr [a-z] [b-za])
+	      let number=number+1
+	    done
+	    echo "[$letter_one-za-$letter_two]"	  
+	fi
+fi 	          
+
+
+
